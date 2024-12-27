@@ -6,6 +6,7 @@ client = docker.from_env()
 activeContainers = []
 def create_container(serverID, ram):
     try:
+        print("creating container...")
         # Create a container with memory limits
         container = client.containers.run(
             "alpine",  # Base image
@@ -23,6 +24,7 @@ def create_container(serverID, ram):
         print(f"There has been an error while creating a docker: {e}")
 def stop_container(serverID):
     try:
+        print("stopping container...")
         container = get_container(serverID)
         if container is not None:
             container.stop()
@@ -57,4 +59,3 @@ while True:
         stop_container(_id)
     if(_cmd == "help"):
         print("list | create | remove")
-    time.sleep(10)
