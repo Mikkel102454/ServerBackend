@@ -1,5 +1,5 @@
 import docker
-
+import time
 # Initialize Docker client
 client = docker.from_env()
 
@@ -41,3 +41,20 @@ def get_container(serverID):
 def get_all_containers():
     for container in activeContainers:
         print (container.name)
+
+
+while True:
+    _cmd = input("Command:")
+
+    if(_cmd == "list"):
+        get_all_containers()
+    if(_cmd == "create"):
+        _id = input("id:")
+        _ram = input("ram:")
+        create_container(_id, _ram)
+    if(_cmd == "remove"):
+        _id = input("id:")
+        stop_container(_id)
+    if(_cmd == "help"):
+        print("list | create | remove")
+    time.sleep(10)
