@@ -17,7 +17,7 @@ def start_container(serverID, ram):
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes={
                 hostPath: {'bind': hostPath, 'mode': 'rw'}
-            }
+            },
             detach=True,
             mem_limit=ram
         )
