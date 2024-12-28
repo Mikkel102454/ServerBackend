@@ -13,7 +13,7 @@ def start_container(serverID, ram):
         javaPath = f"/usr/lib/jvm"
         # Create a container with memory limits
         container = client.containers.run(
-            "ubuntu:22.0.4",  # Base image
+            "ubuntu:22.04",  # Base image
             name=serverID,
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes={
