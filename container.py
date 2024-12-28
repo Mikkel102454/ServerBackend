@@ -2,8 +2,6 @@ import docker
 import os
 import shutil
 
-from servers import create_new_server
-from servers import start_server
 # Initialize Docker client
 client = docker.from_env()
 
@@ -64,21 +62,3 @@ def get_all_containers():
         print (container.name)
 
 
-while True:
-    _cmd = input("Command:")
-
-    if(_cmd == "list"):
-        get_all_containers()
-    if(_cmd == "create"):
-        _id = input("id:")
-        _v = input("version:")
-        create_new_server(_id, _v, "2G")
-    if(_cmd == "start"):
-        _id = input("id:")
-        _ram = input("ram:")
-        start_server(_id, _ram)
-    if(_cmd == "remove"):
-        _id = input("id:")
-        stop_container(_id)
-    if(_cmd == "help"):
-        print("list | create | remove")
