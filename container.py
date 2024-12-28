@@ -13,12 +13,12 @@ def start_container(serverID, ram):
         javaPath = f"/usr/lib/jvm"
         # Create a container with memory limits
         container = client.containers.run(
-            "alpine",  # Base image
+            "ubuntu:22.0.4",  # Base image
             name=serverID,
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes={
                 hostPath: {'bind': hostPath, 'mode': 'rw'},
-                javaPath: {'bind': javaPath, 'mode': 'rw'}
+                javaPath: {'bind': javaPath, 'mode': 'ro'}
             },
             detach=True,
             mem_limit=ram
