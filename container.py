@@ -14,9 +14,9 @@ def start_container(serverID, ram):
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command="sh -c 'cd /host_path && sh container.sh'",
+            command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes={
-                hostPath: {'bind': '/host_path', 'mode': 'rw'}  # Host path mounted to /host_path in container
+                hostPath: {'bind': hostPath, 'mode': 'rw'}
             },
             detach=True,
             mem_limit=ram
