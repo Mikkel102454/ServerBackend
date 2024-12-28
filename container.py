@@ -10,13 +10,15 @@ def start_container(serverID, ram):
     try:
         print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
+        javaPath = f"/usr/lib/jvm"
         # Create a container with memory limits
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes={
-                hostPath: {'bind': "/", 'mode': 'rw'}
+                hostPath: {'bind': hostPath, 'mode': 'rw'},
+                javaPath: {'bind': javaPath, 'mode': 'rw'}
             },
             detach=True,
             mem_limit=ram
