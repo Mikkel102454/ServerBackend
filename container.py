@@ -10,16 +10,15 @@ def start_container(serverID, ram):
     try:
         print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
-        containerPath = f"/containers/data/ids/{serverID}"
         # Create a container with memory limits
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command=f"sh -c 'cd {containerPath} && sh container.sh'",
+            command=f"sh -c 'cd {hostPath} && sh container.sh'",
+            volumes={
+                hostPath: {'bind': hostPath, 'mode': 'rw'}
+            }
             detach=True,
-            volumes=[
-                f"{hostPath}:{containerPath}:rw"
-            ],
             mem_limit=ram
         )
         activeContainers.append(container)
