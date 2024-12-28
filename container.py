@@ -1,22 +1,20 @@
 import docker
-import time
 import os
+import shutil
 # Initialize Docker client
 client = docker.from_env()
 
 activeContainers = []
-def create_container(serverID, ram):
+def start_container(serverID, ram):
     try:
-        print("creating container...")
+        print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
         containerPath = f"/containers/data/ids/{serverID}"
-        os.makedirs(hostPath, exist_ok=True)
-        os.makedirs(containerPath, exist_ok=True)
         # Create a container with memory limits
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command="sh -c 'while true; do echo hello; sleep 1; done'",
+            command="mkdir testdir",
             detach=True,
             volumes=[
                 f"{hostPath}:{containerPath}:rw"
@@ -38,6 +36,19 @@ def stop_container(serverID):
             print(f"No docker with id: {serverID}")
     except Exception as e:
         print(f"There has been an error while stopping a docker: {e}")
+def delete_container(serverID):
+    print("creating container...")
+    hostPath = f"/home/user/containers/ids/{serverID}"
+    containerPath = f"/containers/data/ids/{serverID}"
+    shutil.rmtree(hostPath)
+    shutil.rmtree(containerPath)
+    
+def create_container(serverID):
+    print("creating container...")
+    hostPath = f"/home/user/containers/ids/{serverID}"
+    containerPath = f"/containers/data/ids/{serverID}"
+    os.makedirs(hostPath, exist_ok=True)
+    os.makedirs(containerPath, exist_ok=True)
 
 def get_container(serverID):
     for container in activeContainers:
@@ -57,8 +68,11 @@ while True:
         get_all_containers()
     if(_cmd == "create"):
         _id = input("id:")
+        create_container(_id,)
+    if(_cmd == "start"):
+        _id = input("id:")
         _ram = input("ram:")
-        create_container(_id, _ram)
+        start_container(_id, _ram)
     if(_cmd == "remove"):
         _id = input("id:")
         stop_container(_id)
