@@ -14,7 +14,7 @@ def start_container(serverID, ram):
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command="mkdir testdir",
+            command="sh -c 'mkdir -p testdir'",
             detach=True,
             volumes=[
                 f"{hostPath}:{containerPath}:rw"
