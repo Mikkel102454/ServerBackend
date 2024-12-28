@@ -26,5 +26,4 @@ def create_new_server(id, version, ram):
 
 
 def start_server(id, ram):
-    start_container(id, ram)
-    
+    start_container(id, ram, 21)
