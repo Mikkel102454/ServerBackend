@@ -6,20 +6,28 @@ import shutil
 client = docker.from_env()
 
 activeContainers = []
-def start_container(serverID, ram):
+def start_container(serverID, ram, java):
     try:
         print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
-        javaPath = f"/usr/lib/jvm"
+        tempVolumes={
+                hostPath: {'bind': hostPath, 'mode': 'rw'}
+            },
+        if(java != 0):
+            javaPath1 = f"/usr/lib/jvm/java-{java}-openjdk-amd64"
+            javaPath2 = f"/etc/java-{java}-openjdk"
+            tempVolumes={
+                hostPath: {'bind': hostPath, 'mode': 'rw'},
+                javaPath1: {'bind': javaPath1, 'mode': 'ro'},
+                javaPath2: {'bind': javaPath2, 'mode': 'ro'}
+            }
+        
         # Create a container with memory limits
         container = client.containers.run(
             "ubuntu:24.04",  # Base image
             name=serverID,
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
-            volumes={
-                hostPath: {'bind': hostPath, 'mode': 'rw'},
-                javaPath: {'bind': javaPath, 'mode': 'ro'}
-            },
+            volumes=tempVolumes,
             detach=True,
             mem_limit=ram
         )
