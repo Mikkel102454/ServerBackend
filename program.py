@@ -1,5 +1,6 @@
 import docker
 import time
+import os
 # Initialize Docker client
 client = docker.from_env()
 
@@ -7,6 +8,10 @@ activeContainers = []
 def create_container(serverID, ram):
     try:
         print("creating container...")
+        hostPath = f"/home/user/containers/ids/{serverID}"
+        containerPath = f"/containers/data/ids/{serverID}"
+        os.makedirs(hostPath, exist_ok=True)
+        os.makedirs(containerPath, exist_ok=True)
         # Create a container with memory limits
         container = client.containers.run(
             "alpine",  # Base image
@@ -14,7 +19,7 @@ def create_container(serverID, ram):
             command="sh -c 'while true; do echo hello; sleep 1; done'",
             detach=True,
             volumes=[
-                f"/home/user/containers/ids/{serverID}:/containers/data/ids/{serverID}:rw"
+                f"{hostPath}:{containerPath}:rw"
             ],
             mem_limit=ram
         )
