@@ -14,7 +14,7 @@ def start_container(serverID, ram):
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command=f"sh -c 'cd {hostPath} && sh container.sh'",
+            command=f"sh -c 'cd {hostPath} && mkdir test'",
             volumes={
                 hostPath: {'bind': hostPath, 'mode': 'rw'}
             },
