@@ -1,6 +1,9 @@
 import docker
 import os
 import shutil
+
+from servers import create_new_server
+from servers import start_server
 # Initialize Docker client
 client = docker.from_env()
 
@@ -14,7 +17,7 @@ def start_container(serverID, ram):
         container = client.containers.run(
             "alpine",  # Base image
             name=serverID,
-            command=f"sh -c 'cd {containerPath} && mkdir -p testdir && echo Folder created in container'",
+            command=f"sh -c 'cd {containerPath} && sh container.sh'",
             detach=True,
             volumes=[
                 f"{hostPath}:{containerPath}:rw"
@@ -68,11 +71,12 @@ while True:
         get_all_containers()
     if(_cmd == "create"):
         _id = input("id:")
-        create_container(_id,)
+        _v = input("version:")
+        create_new_server(_id, _v, "2G")
     if(_cmd == "start"):
         _id = input("id:")
         _ram = input("ram:")
-        start_container(_id, _ram)
+        start_server(_id, _ram)
     if(_cmd == "remove"):
         _id = input("id:")
         stop_container(_id)
