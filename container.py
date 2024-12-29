@@ -14,11 +14,12 @@ def start_container(serverID, ram, java, port):
                 hostPath: {'bind': hostPath, 'mode': 'rw'}
             },
         if(java != 0):
+            javaCerts = f"etc/ssl/certs/java"
             javaPath1 = f"/usr/lib/jvm/java-{java}-openjdk-amd64"
             javaPath2 = f"/etc/java-{java}-openjdk"
             tempVolumes={
                 hostPath: {'bind': hostPath, 'mode': 'rw'},
-                "etc/ssl/certs/java": {'bind': "etc/ssl/certs/java", 'mode': 'ro'},
+                javaCerts: {'bind': javaCerts, 'mode': 'ro'},
                 javaPath1: {'bind': javaPath1, 'mode': 'ro'},
                 javaPath2: {'bind': javaPath2, 'mode': 'ro'}
             }
