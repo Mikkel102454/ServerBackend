@@ -6,43 +6,24 @@ import shutil
 client = docker.from_env()
 
 activeContainers = []
-def start_container(serverID, ram, java, port):
+def start_container(serverID, ram, port):
     try:
         print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
-        tempVolumes={
+
+        container = client.containers.run(
+            "ubuntu:24.04",  # Base image
+            name=serverID,
+            command=f"sh -c 'cd {hostPath} && sh container.sh'",
+            volumes= {
                 hostPath: {'bind': hostPath, 'mode': 'rw'}
             },
-        if(java != 0):
-            # USES JAVA
-            container = client.containers.run(
-                "ubuntu:24.04",  # Base image
-                name=serverID,
-                command=f"sh -c 'apt update && apt install -y openjdk-{java}-jdk && cd {hostPath} && java -version && sh container.sh'",
-                volumes= {
-                    hostPath: {'bind': hostPath, 'mode': 'rw'}
-                },
-                detach=True,
-                ports={
-                    '25565/tcp': ('0.0.0.0', port)  # Map container port 25565 to host port 25565
-                },
-                mem_limit=ram
-            )
-        else:
-            # DOSNT USE JAVA
-            container = client.containers.run(
-                "ubuntu:24.04",  # Base image
-                name=serverID,
-                command=f"sh -c 'cd {hostPath} && sh container.sh'",
-                volumes= {
-                    hostPath: {'bind': '/host_path', 'mode': 'rw'}
-                },
-                detach=True,
-                ports={
-                    '25565/tcp': ('0.0.0.0', port)  # Map container port 25565 to host port 25565
-                },
-                mem_limit=ram
-            )
+            detach=True,
+            ports={
+                '25565/tcp': ('0.0.0.0', port)
+            },
+            mem_limit=ram
+        )
         activeContainers.append(container)
         print(serverID)
     except Exception as e:
