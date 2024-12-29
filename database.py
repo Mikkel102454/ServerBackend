@@ -8,8 +8,8 @@ def connect_to_database(username, password):
     global cursor, db
     db = mysql.connector.connect(
         host="localhost",
-        username=username,
-        password=password,
+        username=f"{username}",
+        password=f"{password}",
         database="hosting"
     )
     cursor = db.cursor()
