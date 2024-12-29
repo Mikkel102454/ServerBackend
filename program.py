@@ -16,8 +16,7 @@ while True:
     if(_cmd == "start"):
         _id = input("id:")
         _ram = input("ram:")
-        _port = input("port:")
-        start_server(_id, _ram, int(_port))
+        start_server(_id, _ram)
     if(_cmd == "remove"):
         _id = input("id:")
         stop_container(_id)
