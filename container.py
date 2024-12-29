@@ -6,7 +6,7 @@ import shutil
 client = docker.from_env()
 
 activeContainers = []
-def start_container(serverID, ram, java):
+def start_container(serverID, ram, java, port):
     try:
         print("starting container...")
         hostPath = f"/home/user/containers/ids/{serverID}"
@@ -29,6 +29,9 @@ def start_container(serverID, ram, java):
             command=f"sh -c 'cd {hostPath} && sh container.sh'",
             volumes=tempVolumes,
             detach=True,
+            port= {
+                '25565/tcp': ('0.0.0.0', port)  # Map container port 25565 to host port 25565
+            }
             mem_limit=ram
         )
         activeContainers.append(container)
