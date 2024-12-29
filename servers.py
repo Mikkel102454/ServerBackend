@@ -25,5 +25,5 @@ def create_new_server(id, version, ram):
             print(f"Copied directory: {source_item} -> {dest_item}")
 
 
-def start_server(id, ram):
-    start_container(id, ram, 21, 25565)
+def start_server(id, ram, port):
+    start_container(id, ram, 21, int(port))
