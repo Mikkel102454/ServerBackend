@@ -18,7 +18,7 @@ def start_container(serverID, ram, java, port):
             container = client.containers.run(
                 "ubuntu:24.04",  # Base image
                 name=serverID,
-                command=f"sh -c 'apt update && apt install -y openjdk-{java}-jdk && export JAVA_HOME=/usr/lib/jvm/java-{java}-openjdk-amd64 && export PATH=$JAVA_HOME/bin:$PATH && cd {hostPath} && java -version && sh container.sh'",
+                command=f"sh -c 'apt update && apt install -y openjdk-{java}-jdk && cd {hostPath} && java -version && sh container.sh'",
                 volumes= {
                     hostPath: {'bind': '/host_path', 'mode': 'rw'}
                 },
