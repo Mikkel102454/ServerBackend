@@ -31,7 +31,7 @@ def start_container(serverID, ram, java, port):
             detach=True,
             port= {
                 '25565/tcp': ('0.0.0.0', port)  # Map container port 25565 to host port 25565
-            }
+            },
             mem_limit=ram
         )
         activeContainers.append(container)
