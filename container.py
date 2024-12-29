@@ -22,10 +22,6 @@ def start_container(serverID, ram, java, port):
                 volumes= {
                     hostPath: {'bind': '/host_path', 'mode': 'rw'}
                 },
-                environment={
-                    "JAVA_HOME": f"/usr/lib/jvm/java-{java}-openjdk-amd64",
-                    "PATH": f"/usr/lib/jvm/java-{java}-openjdk-amd64/bin:" + "${PATH}"
-                },
                 detach=True,
                 ports={
                     '25565/tcp': ('0.0.0.0', port)  # Map container port 25565 to host port 25565
