@@ -20,7 +20,7 @@ def start_container(serverID, ram, java, port):
                 name=serverID,
                 command=f"sh -c 'apt update && apt install -y openjdk-{java}-jdk && cd {hostPath} && java -version && sh container.sh'",
                 volumes= {
-                    hostPath: {'bind': '/host_path', 'mode': 'rw'}
+                    hostPath: {'bind': hostPath, 'mode': 'rw'}
                 },
                 detach=True,
                 ports={
