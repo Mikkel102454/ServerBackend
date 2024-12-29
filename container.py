@@ -18,6 +18,7 @@ def start_container(serverID, ram, java, port):
             javaPath2 = f"/etc/java-{java}-openjdk"
             tempVolumes={
                 hostPath: {'bind': hostPath, 'mode': 'rw'},
+                "etc/ssl/certs/java": {'bind': "etc/ssl/certs/java", 'mode': 'ro'},
                 javaPath1: {'bind': javaPath1, 'mode': 'ro'},
                 javaPath2: {'bind': javaPath2, 'mode': 'ro'}
             }
