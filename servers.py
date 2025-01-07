@@ -6,7 +6,7 @@ from container import start_container
 from std import generate_uuid
 #from database import insert_table
 #from database import read_value
-server_files = "/home/mikkel/hosting/src/ServerFiles/Minecraft/"
+server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
 container_files = "/home/user/containers/ids/"
 
 def create_new_server(name, version):
