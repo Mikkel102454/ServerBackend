@@ -4,7 +4,7 @@ import shutil
 from container import create_container
 from container import start_container
 from std import generate_uuid
-#from database import insert_table
+from database import insert_table
 #from database import read_value
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
 container_files = "/home/user/containers/ids/"
@@ -12,10 +12,11 @@ container_files = "/home/user/containers/ids/"
 def create_new_server(name, version):
     ram = "2G"
     # Uplaod To database
-    id = name
-    #id = generate_uuid()
+
+    id = generate_uuid()
     print("Generated with UUID: " + id)
-    #insert_table("MinecraftServers", "uuid, version, name, ram", f"{id}, {version}, {name}, {ram}")
+    insert_table("mc-servers", "uuid, version, name, ram", f"{id}, {version}, {name}, {ram}")
+    id = name
     create_container(id)
     dir = os.path.join(server_files, version)
     destDir = os.path.join(container_files, id)

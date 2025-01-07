@@ -10,7 +10,7 @@ def connect_to_database(username, password):
         host="localhost",
         username=username,
         password=password,
-        database="hosting"
+        database="server"
     )
     cursor = db.cursor()
     print("Connected to database successfully!")
