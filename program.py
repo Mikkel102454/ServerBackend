@@ -17,7 +17,7 @@ while True:
     if(_cmd == "create"):
         _name = input("name:")
         _v = input("version:")
-        create_new_server(_id, _v)
+        create_new_server(_name, _v)
     if(_cmd == "start"):
         _id = input("id:")
         _port = input("port:")

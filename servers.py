@@ -12,7 +12,8 @@ container_files = "/home/user/containers/ids/"
 def create_new_server(name, version):
     ram = "2G"
     # Uplaod To database
-    id = generate_uuid()
+    id = name
+    #id = generate_uuid()
     print("Generated with UUID: " + id)
     #insert_table("MinecraftServers", "uuid, version, name, ram", f"{id}, {version}, {name}, {ram}")
     create_container(id)
