@@ -32,7 +32,7 @@ def read_value(tableName, column, condition, condition_values):
     cursor.execute(query, (condition_values,))
     result = cursor.fetchone()
     if result:
-        print(result)
+        print(result[0])
     else:
         print("No matching record found.")
     return result
