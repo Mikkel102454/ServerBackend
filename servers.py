@@ -34,7 +34,7 @@ def create_new_server(name, version):
 
 
 def start_server(id, port):
-    ram = read_value("mc_servers", "ram", "UUID", id)
+    ram = read_value("mc-servers", "ram", "UUID", id)
     start_container(id, ram, int(port))
 
 def delete_server():
