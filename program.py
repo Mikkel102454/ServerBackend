@@ -5,7 +5,7 @@ from container import get_all_containers
 from container import stop_container
 from database import connect_to_database
 from database import create_table
-connect_to_database("root", "Bredsten7182")
+connect_to_database("root", "")
 create_table("mc-servers", "uuid VARCHAR(255), version VARCHAR(255), javaVersion VARCHAR(255), name VARCHAR(255), ram VARCHAR(255)")
 
 while True:
