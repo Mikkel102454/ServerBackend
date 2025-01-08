@@ -16,7 +16,7 @@ def connect_to_database(username, password):
     print("Connected to database successfully!")
 
 def create_table(name, values):
-    query = f"CREATE TABLE IF NOT EXIST `{name}` ({values})"
+    query = f"CREATE TABLE IF NOT EXISTs `{name}` ({values})"
     cursor.execute(query)
     db.commit()
     print(f"Table '{name}' created successfully!")
