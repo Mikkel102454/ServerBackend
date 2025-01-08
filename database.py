@@ -29,14 +29,14 @@ def insert_table(tableName, names, values):
 
 def read_values(tableName, columns, condition, condition_values):
     query = f"SELECT {columns} FROM `{tableName}` WHERE {condition}"
-    cursor.execute(query, condition_values)
+    cursor.execute(query)
     results = cursor.fetchall()
     for row in results:
         print(row)
     return results
 
-def read_value(tableName, columns, condition, condition_values):
-    query = f"SELECT {columns} FROM `{tableName}` WHERE {condition} LIMIT 1"
+def read_value(tableName, column, condition, condition_values):
+    query = f"SELECT {column} FROM `{tableName}` WHERE {condition} LIMIT 1"
     cursor.execute(query, condition_values)
     result = cursor.fetchone()
     if result:
