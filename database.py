@@ -27,17 +27,9 @@ def insert_table(tableName, names, values):
     db.commit()
     print(f"Inserted into '{tableName}' successfully!")
 
-def read_values(tableName, columns, condition, condition_values):
-    query = f"SELECT {columns} FROM `{tableName}` WHERE {condition}"
-    cursor.execute(query)
-    results = cursor.fetchall()
-    for row in results:
-        print(row)
-    return results
-
 def read_value(tableName, column, condition, condition_values):
-    query = f"SELECT {column} FROM `{tableName}` WHERE {condition} LIMIT 1"
-    cursor.execute(query, condition_values)
+    query = f"SELECT {column} FROM `{tableName}` WHERE {condition} = %s LIMIT 1"
+    cursor.execute(query, (condition_values,))
     result = cursor.fetchone()
     if result:
         print(result)
