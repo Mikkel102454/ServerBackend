@@ -35,7 +35,7 @@ def read_value(tableName, column, condition, condition_values):
         print(result[0])
     else:
         print("No matching record found.")
-    return result
+    return result[0]
 def delete_from_table(tableName, condition, condition_values):
     query = f"DELETE FROM `{tableName}` WHERE {condition}"
     cursor.execute(query, condition_values)
