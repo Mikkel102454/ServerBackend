@@ -16,7 +16,6 @@ def create_new_server(name, version):
     id = generate_uuid()
     print("Generated with UUID: " + id)
     insert_table("mc-servers", "uuid, version, name, ram", (id, version, name, ram))
-    id = name
     create_container(id)
     dir = os.path.join(server_files, version)
     destDir = os.path.join(container_files, id)
