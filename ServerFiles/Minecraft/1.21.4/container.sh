@@ -7,6 +7,7 @@ apt install -y make
 git clone https://github.com/Tiiffi/mcrcon.git
 cd ./mcrcon
 pwd
+ls
 make
 make install
 cd ..
