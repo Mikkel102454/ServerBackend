@@ -4,6 +4,7 @@ apt update
 apt install -y openjdk-21-jdk
 apt install -y git
 apt install -y make
+mkdir /usr/local/bin/
 git clone https://github.com/Tiiffi/mcrcon.git
 cd mcrcon
 make
