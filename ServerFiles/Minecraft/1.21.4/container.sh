@@ -1,15 +1,15 @@
 #Start Minecraft Server
+# INSTAL JAVA
 cd /
 apt update 
 apt install -y openjdk-21-jdk
+# INSTALL MCRCON
 apt install -y gcc build-essential make git
 git clone https://github.com/Tiiffi/mcrcon.git
 cd ./mcrcon
-pwd
-ls
 make
 make install
-cd ..
-pause
-cd files
+cd /
+# START SERVER
+cd ./files
 sh start.sh
