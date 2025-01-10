@@ -10,5 +10,6 @@ cd ./mcrcon
 make
 make install
 # START SERVER
+pwd
 cd /files
 sh start.sh
