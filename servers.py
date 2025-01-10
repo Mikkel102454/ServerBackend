@@ -43,6 +43,7 @@ def start_server(id, port):
 
 def close_server(id):
     #Close server
+    send_command("stop", id)
     #Save World
     stop_container(id)
     return
@@ -60,3 +61,6 @@ def delete_server(id):
 #Get server.properties
 
 #Set server.properties
+
+def send_command(command, id):
+    return
