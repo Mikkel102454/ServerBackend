@@ -1,4 +1,5 @@
 #Start Minecraft Server
+cd /
 apt update 
 apt install -y openjdk-21-jdk
 apt install -y git
