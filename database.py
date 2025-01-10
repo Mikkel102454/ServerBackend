@@ -37,7 +37,7 @@ def read_value(tableName, column, condition, condition_values):
         print("No matching record found.")
     return result[0]
 def delete_from_table(tableName, condition, condition_values):
-    query = f"DELETE FROM `{tableName}` WHERE {condition}"
-    cursor.execute(query, condition_values)
+    query = f"DELETE FROM `{tableName}` WHERE {condition} = %s"
+    cursor.execute(query, (condition_values,))
     db.commit()
     print(f"Deleted rows from '{tableName}' where {condition}")

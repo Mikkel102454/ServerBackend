@@ -3,9 +3,12 @@ import shutil
 
 from container import create_container
 from container import start_container
+from container import delete_container
+from container import stop_container
 from std import generate_uuid
 from database import insert_table
 from database import read_value
+from database import delete_from_table
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
 container_files = "/home/user/containers/ids/"
 
@@ -37,7 +40,22 @@ def start_server(id, port):
     ram = read_value("mc-servers", "ram", "UUID", id)
     start_container(id, ram, int(port))
 
-def delete_server():
+def close_server(id):
+    #Close server
+    #Save World
+    stop_container(id)
+    return
+
+def delete_server(id):
+    close_server(id)
+    delete_from_table("mc-servers", "UUID", id)
+    delete_container(id)
     return
 
 ## OTHER ##
+
+#Get player list
+
+#Get server.properties
+
+#Set server.properties
