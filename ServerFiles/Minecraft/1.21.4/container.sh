@@ -11,5 +11,7 @@ make
 make install
 # START SERVER
 pwd
+cd ..
+ls
 cd /files
 sh start.sh
