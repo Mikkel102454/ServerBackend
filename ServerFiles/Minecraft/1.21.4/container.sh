@@ -1,6 +1,5 @@
 #Start Minecraft Server
 # INSTAL JAVA
-cd /
 apt update 
 apt install -y openjdk-21-jdk
 # INSTALL MCRCON
@@ -13,5 +12,5 @@ make install
 pwd
 cd ..
 ls
-cd /files
+cd files
 sh start.sh
