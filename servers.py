@@ -16,7 +16,8 @@ def create_new_server(name, version):
     ram = "2G"
     # Uplaod To database
 
-    id = generate_uuid()
+    id = name
+    # id = generate_uuid()
     print("Generated with UUID: " + id)
     insert_table("mc-servers", "uuid, version, name, ram", (id, version, name, ram))
     create_container(id)
