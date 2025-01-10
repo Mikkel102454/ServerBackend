@@ -9,7 +9,6 @@ git clone https://github.com/Tiiffi/mcrcon.git
 cd ./mcrcon
 make
 make install
-cd /
 # START SERVER
-cd ./files
+cd /files
 sh start.sh
