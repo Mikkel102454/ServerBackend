@@ -18,17 +18,13 @@ def create_socket(serverID, serviceName, service, socketName, socket):
 def start_socket(socketName):
     subprocess.run(
         ["sudo", "systemctl", "start", socketName],
-        check=True,
         text=True,
-        apture_output=True
     )
     print(f"Service {socketName} started successfully!")
 def stop_socket(socketName):
     subprocess.run(
         ["sudo", "systemctl", "stop", socketName],
-        check=True,
         text=True,
-        apture_output=True
     )
     print(f"Service {socketName} started successfully!")
 
@@ -36,7 +32,5 @@ def write_to_socket(socketName, msg):
         command = f"echo {msg} > /run/{socketName}"
         result = subprocess.run(
             ["sudo", "sh", "-c", command],
-            check=True,
             text=True,
-            capture_output=True
         )
