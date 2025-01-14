@@ -2,6 +2,7 @@
 from servers import create_new_server
 from servers import start_server
 from servers import stop_server
+from servers import send_command
 #from database import connect_to_database
 #from database import create_table
 #connect_to_database("mikkel", "Bredsten7182")
@@ -21,6 +22,10 @@ while True:
     elif(_cmd == "remove"):
         _id = input("id:")
         stop_server(_id)
+    elif(_cmd == "cmd"):
+        _id = input("id:")
+        _cmd = input("cmd:")
+        send_command(_cmd, _id)
     elif(_cmd == "help"):
         print("list | create | remove")
 
