@@ -11,7 +11,7 @@ from database import insert_table
 from database import read_value
 from database import delete_from_table
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
-container_files = "/home/user/servers/"
+socket_files = "/home/user/servers/"
 
 def create_new_server(name, version):
     id = name
@@ -45,7 +45,7 @@ def create_new_server(name, version):
 
 
     dir = os.path.join(server_files, version)
-    destDir = os.path.join(container_files, id)
+    destDir = os.path.join(socket_files, id)
     for item in os.listdir(dir):
         source_item = os.path.join(dir, item)
         dest_item = os.path.join(destDir, item)

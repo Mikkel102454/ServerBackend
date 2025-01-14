@@ -4,7 +4,7 @@ import subprocess
 
 
 def create_socket(serverID, serviceName, service, socketName, socket):
-    print("creating container...")
+    print("creating socket...")
     hostPath = f"/home/servers/{serverID}"
 
     f = open(f"/etc/systemd/system/{serviceName}", "w")
