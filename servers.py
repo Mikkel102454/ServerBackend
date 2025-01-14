@@ -40,6 +40,8 @@ def create_new_server(name, version):
         ListenFIFO=%t/mc.server.{id}.stdin
         RemoveOnStop=true
         SocketMode=0660
+        SocketUser=servers
+        SocketGroup=servers
     '''
     create_socket(id, f"mc.server.{id}.service", service, f"mc.server.{id}.socket", socket)
     
