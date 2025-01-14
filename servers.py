@@ -11,7 +11,7 @@ from database import insert_table
 from database import read_value
 from database import delete_from_table
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
-socket_files = "/home/user/servers/"
+socket_files = "/home/servers/"
 
 def create_new_server(name, version):
     id = name
