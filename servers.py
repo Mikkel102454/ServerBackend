@@ -1,26 +1,49 @@
 import os
 import shutil
 
-from container import create_container
-from container import start_container
-from container import delete_container
-from container import stop_container
+from sockets import create_socket
+from sockets import start_socket
+from sockets import stop_socket
+from sockets import write_to_socket
+
 from std import generate_uuid
 from database import insert_table
 from database import read_value
 from database import delete_from_table
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
-container_files = "/home/user/containers/ids/"
+container_files = "/home/user/servers/"
 
 def create_new_server(name, version):
-    ram = "2G"
-    # Uplaod To database
-
     id = name
     # id = generate_uuid()
+    service = f'''
+        [Unit]
+        Description=Minecraft:{id}
+        After=network.target
+        [Service]
+        Type=simple
+        KillSignal=SIGCONT
+        ExecStart=/bin/sh -c "exec /home/user/servers/{id}/start.sh </run/mc.server.{id}.stdin"
+        WorkingDirectory=/home/user/servers/{id}/
+        MemoryMax=2G
+        MemoryAccounting=true
+        Sockets=mc.server.{id}.stdin
+        [Install]
+        WantedBy=multi-user.target
+    '''
+    socket = f'''
+        [Unit]
+        BindsTo=mc.server.{id}.service
+        [Socket]
+        ListenFIFO=%t/mc.server.{id}.stdin
+        RemoveOnStop=true
+        SocketMode=0660
+    '''
+    create_socket(id, f"mc.server.{id}.service", service, f"mc.server.{id}.socket", socket)
+    
     print("Generated with UUID: " + id)
-    insert_table("mc-servers", "uuid, version, name, ram", (id, version, name, ram))
-    create_container(id)
+
+
     dir = os.path.join(server_files, version)
     destDir = os.path.join(container_files, id)
     for item in os.listdir(dir):
@@ -38,21 +61,10 @@ def create_new_server(name, version):
 
 
 def start_server(id, port):
-    ram = "2G"#read_value("mc-servers", "ram", "UUID", id)
-    start_container(id, ram, int(port))
+    start_socket(f"mc.server.{id}.socket")
 
-def close_server(id):
-    #Close server
-    send_command("stop", id)
-    #Save World
-    stop_container(id)
-    return
-
-def delete_server(id):
-    close_server(id)
-    delete_from_table("mc-servers", "UUID", id)
-    delete_container(id)
-    return
+def stop_server(id):
+    stop_socket(f"mc.server.{id}.socket")
 
 ## OTHER ##
 
@@ -63,4 +75,5 @@ def delete_server(id):
 #Set server.properties
 
 def send_command(command, id):
+    write_to_socket(f"mc.server.{id}.stdin", command)
     return
