@@ -7,11 +7,11 @@ def create_socket(serverID, serviceName, service, socketName, socket):
     print("creating container...")
     hostPath = f"/home/servers/{serverID}"
 
-    f = open(f"/etc/systemd/system/${serviceName}", "w")
+    f = open(f"/etc/systemd/system/{serviceName}", "w")
     f.write(service)
     f.close()
 
-    f = open(f"/etc/systemd/system/${socketName}", "w")
+    f = open(f"/etc/systemd/system/{socketName}", "w")
     f.write(socket)
     f.close()
     os.makedirs(hostPath, exist_ok=True)
