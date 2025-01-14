@@ -21,6 +21,8 @@ def create_new_server(name, version):
         Description=Minecraft:{id}
         After=network.target
         [Service]
+        User=servers
+        Group=servers
         Type=simple
         KillSignal=SIGCONT
         ExecStart=/bin/sh -c "exec /home/servers/{id}/start.sh </run/mc.server.{id}.stdin"
