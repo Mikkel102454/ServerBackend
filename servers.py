@@ -23,8 +23,8 @@ def create_new_server(name, version):
         [Service]
         Type=simple
         KillSignal=SIGCONT
-        ExecStart=/bin/sh -c "exec /home/user/servers/{id}/start.sh </run/mc.server.{id}.stdin"
-        WorkingDirectory=/home/user/servers/{id}/
+        ExecStart=/bin/sh -c "exec /home/servers/{id}/start.sh </run/mc.server.{id}.stdin"
+        WorkingDirectory=/home/servers/{id}/
         MemoryMax=2G
         MemoryAccounting=true
         Sockets=mc.server.{id}.stdin
