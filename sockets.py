@@ -47,17 +47,20 @@ def set_permissions(directory, user, group, mode):
         # Recursively change ownership and permissions
         for root, dirs, files in os.walk(directory):
             # Change ownership and permissions for the current directory
+            os.chown(root, uid, gid)
             os.chmod(root, mode)
 
             # Change ownership and permissions for all files in the current directory
             for file in files:
                 file_path = os.path.join(root, file)
-                os.chmod(file_path, mode)  # Remove execute bit for files
+                os.chown(file_path, uid, gid)
+                os.chmod(file_path, mode)  # Apply full mode, including execute bit
 
             # Change ownership and permissions for all subdirectories in the current directory
             for dir in dirs:
                 dir_path = os.path.join(root, dir)
-                os.chmod(dir_path, mode)  # Directories keep execute permissions
+                os.chown(dir_path, uid, gid)
+                os.chmod(dir_path, mode)  # Apply full mode, including execute bit
 
         print(f"Permissions successfully updated for '{directory}'")
     except KeyError as e:
