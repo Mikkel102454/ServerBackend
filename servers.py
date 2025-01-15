@@ -18,7 +18,7 @@ socket_files = "/home/servers/"
 def create_new_server(name, version):
     id = name
     # id = generate_uuid()
-    insert_table("mc-servers", "uuid, version, name, ram, port", f"{id}, {version}, {name}, 2G, 0")
+    insert_table("mc-servers", "uuid, version, name, ram, port", (id, version, name, "2G", 0))
     service = f'''
         [Unit]
         Description=Minecraft:{id}
