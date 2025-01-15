@@ -46,17 +46,14 @@ def set_permissions(directory, user, group, mode):
         # Recursively change ownership and permissions
         for root, dirs, files in os.walk(directory):
             # Change ownership and permissions of the current directory
-            os.chown(root, uid, gid)
             os.chmod(root, mode)
 
             # Change ownership and permissions of all files
             for file in files:
                 file_path = os.path.join(root, file)
-                os.chown(file_path, uid, gid)
                 os.chmod(file_path, mode)
 
             # Change ownership and permissions of all subdirectories
             for dir in dirs:
                 dir_path = os.path.join(root, dir)
-                os.chown(dir_path, uid, gid)
                 os.chmod(dir_path, mode)
