@@ -39,35 +39,13 @@ def write_to_socket(socketName, msg):
 
 
 def set_permissions(directory, user, group, mode):
-    try:
-        # Get the UID and GID of the user and group
-        uid = pwd.getpwnam(user).pw_uid
-        gid = grp.getgrnam(group).gr_gid
+    uid = pwd.getpwnam(user).pw_uid
+    gid = grp.getgrnam(group).gr_gid
 
-        # Recursively change ownership and permissions
-        for root, dirs, files in os.walk(directory):
-            # Change ownership and permissions for the current directory
-            os.chown(root, uid, gid)
-            os.chmod(root, mode)
-
-            # Change ownership and permissions for all files in the current directory
-            for file in files:
-                file_path = os.path.join(root, file)
-                os.chown(file_path, uid, gid)
-                os.chmod(file_path, mode)  # Apply full mode, including execute bit
-
-            # Change ownership and permissions for all subdirectories in the current directory
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                os.chown(dir_path, uid, gid)
-                os.chmod(dir_path, mode)  # Apply full mode, including execute bit
-
-        print(f"Permissions successfully updated for '{directory}'")
-    except KeyError as e:
-        print(f"Error: {e}")
-        print("Ensure the user and group exist.")
-    except PermissionError as e:
-        print(f"Permission denied: {e}")
-        print("Run the script with elevated permissions (e.g., sudo).")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+    items = os.listdir(directory)
+    os.chown(directory, uid, gid)
+    os.chmod(directory, mode)
+    for item in items:
+        item_path = os.path.join(directory, item)
+        os.chown(item_path, uid, gid)
+        os.chmod(item_path, mode)
