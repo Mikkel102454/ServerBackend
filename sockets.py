@@ -39,18 +39,24 @@ def write_to_socket(socketName, msg):
 
 
 def set_permissions(directory, user, group, mode):
-    # Get the UID and GID of the user and group
-    uid = pwd.getpwnam(user).pw_uid
-    gid = grp.getgrnam(group).gr_gid
+        # Get the UID and GID of the user and group
+        uid = pwd.getpwnam(user).pw_uid
+        gid = grp.getgrnam(group).gr_gid
 
-    # Recursively change ownership and permissions
-    for root, dirs, files in os.walk(directory):
-        # Change ownership of the current directory
-        os.chown(root, uid, gid)
-        os.chmod(root, mode)
+        # Recursively change ownership and permissions
+        for root, dirs, files in os.walk(directory):
+            # Change ownership and permissions of the current directory
+            os.chown(root, uid, gid)
+            os.chmod(root, mode)
 
-        # Change ownership and permissions of all files and subdirectories
-        for name in dirs + files:
-            path = os.path.join(root, name)
-            os.chown(path, uid, gid)
-            os.chmod(path, mode)
+            # Change ownership and permissions of all files
+            for file in files:
+                file_path = os.path.join(root, file)
+                os.chown(file_path, uid, gid)
+                os.chmod(file_path, mode)
+
+            # Change ownership and permissions of all subdirectories
+            for dir in dirs:
+                dir_path = os.path.join(root, dir)
+                os.chown(dir_path, uid, gid)
+                os.chmod(dir_path, mode)
