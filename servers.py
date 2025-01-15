@@ -6,10 +6,11 @@ from sockets import start_socket
 from sockets import stop_socket
 from sockets import write_to_socket
 from sockets import set_permissions
+from sockets import restart_socket
+from sockets import delete_socket
 
 from std import generate_uuid
 from database import insert_table
-from database import read_value
 from database import delete_from_table
 server_files = "/home/mikkel/ServerBackend/ServerFiles/Minecraft/"
 socket_files = "/home/servers/"
@@ -17,6 +18,7 @@ socket_files = "/home/servers/"
 def create_new_server(name, version):
     id = name
     # id = generate_uuid()
+    insert_table("mc-servers", "uuid, version, name, ram, port", f"{id}, {version}, {name}, 2G, 0")
     service = f'''
         [Unit]
         Description=Minecraft:{id}
@@ -65,21 +67,41 @@ def create_new_server(name, version):
             print(f"Copied directory: {source_item} -> {dest_item}")
 
     set_permissions(f"/home/servers/{id}", "servers", "servers", 0o770)
-
-
+def delete_server(id):
+    delete_from_table("mc-servers", "uuid", id)
+    delete_socket(id, f"mc.server.{id}.service", f"mc.server.{id}.socket")
 def start_server(id, port):
     start_socket(f"mc.server.{id}.socket")
-
 def stop_server(id):
     stop_socket(f"mc.server.{id}.socket")
-
+def restart_server(id):
+    restart_socket(f"mc.server.{id}.socket")
 ## OTHER ##
 
 #Get player list
 
 #Get server.properties
+def read_propertie(id, property):
+    # read file
+    with open(f"/home/server/{id}/server.properties", 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            if line.startswith(property + "="):
+                return line.split('=', 1)[1]
 
 #Set server.properties
+def change_propertie(id, property, value):
+    # read file
+    with open(f"/home/server/{id}/server.properties", 'r') as file:
+        lines = file.readlines()
+
+    # Modify the MemoryMax line
+    with open(f"/home/server/{id}/server.properties", 'w') as file:
+        for line in lines:
+            if line.startswith(property):
+                file.write(f"{property}={value}\n")
+            else:
+                file.write(line)
 
 def send_command(command, id):
     write_to_socket(f"mc.server.{id}.stdin", command)

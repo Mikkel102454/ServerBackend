@@ -3,10 +3,10 @@ from servers import create_new_server
 from servers import start_server
 from servers import stop_server
 from servers import send_command
-#from database import connect_to_database
-#from database import create_table
-#connect_to_database("mikkel", "Bredsten7182")
-#create_table("mc-servers", "ID INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(255), version VARCHAR(255), name VARCHAR(255), ram VARCHAR(255)")
+from database import connect_to_database
+from database import create_table
+connect_to_database("mikkel", "Bredsten7182")
+create_table("mc-servers", "ID INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(255), version VARCHAR(255), name VARCHAR(255), ram VARCHAR(255), port VARCHAR(255)")
 
 while True:
     _cmd = input("Command:")

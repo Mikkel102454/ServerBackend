@@ -2,7 +2,7 @@ import os
 import pwd
 import grp
 import subprocess
-
+import shutil
 
 def create_socket(serverID, serviceName, service, socketName, socket):
     print("creating socket...")
@@ -16,6 +16,14 @@ def create_socket(serverID, serviceName, service, socketName, socket):
     f.write(socket)
     f.close()
     os.makedirs(hostPath, exist_ok=True)
+def delete_socket(serverID, serviceName, socketName):
+    stop_socket(socketName)
+    hostPath = f"/home/servers/{serverID}"
+    shutil.rmtree(hostPath)
+    if os.path.exists(f"/etc/systemd/system/{serviceName}"):
+        os.remove(f"/etc/systemd/system/{serviceName}")
+    if os.path.exists(f"/etc/systemd/system/{socketName}"):
+        os.remove(f"/etc/systemd/system/{socketName}")
 def start_socket(socketName):
     subprocess.run(
         ["sudo", "systemctl", "start", socketName],
@@ -28,7 +36,12 @@ def stop_socket(socketName):
         text=True,
     )
     print(f"Service {socketName} started successfully!")
-
+def restart_socket(socketName):
+    subprocess.run(
+        ["sudo", "systemctl", "restart", socketName],
+        text=True,
+    )
+    print(f"Service {socketName} started successfully!")
 def write_to_socket(socketName, msg):
         command = f"echo {msg} > /run/{socketName}"
         result = subprocess.run(
