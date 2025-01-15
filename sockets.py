@@ -35,7 +35,7 @@ def stop_socket(socketName):
         ["sudo", "systemctl", "stop", socketName],
         text=True,
     )
-    print(f"Service {socketName} started successfully!")
+    print(f"Service {socketName} stopped successfully!")
 def restart_socket(socketName):
     subprocess.run(
         ["sudo", "systemctl", "restart", socketName],

@@ -73,7 +73,7 @@ def delete_server(id):
 def start_server(id, port):
     start_socket(f"server.mc.{id}.socket")
 def stop_server(id):
-    stop_socket(f"server.mc.{id}.socket")
+    stop_socket(f"server.mc.{id}.service")
 def restart_server(id):
     restart_socket(f"server.mc.{id}.socket")
 ## OTHER ##
