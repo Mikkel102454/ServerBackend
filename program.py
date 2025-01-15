@@ -2,6 +2,7 @@
 from servers import create_new_server
 from servers import start_server
 from servers import stop_server
+from servers import delete_server
 from servers import send_command
 from database import connect_to_database
 from database import create_table
@@ -19,9 +20,12 @@ while True:
         _id = input("id:")
         _port = input("port:")
         start_server(_id, _port)
-    elif(_cmd == "remove"):
+    elif(_cmd == "stop"):
         _id = input("id:")
         stop_server(_id)
+    elif(_cmd == "delete"):
+        _id = input("id:")
+        delete_server(_id)
     elif(_cmd == "cmd"):
         _id = input("id:")
         _cmd = input("cmd:")
