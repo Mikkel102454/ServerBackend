@@ -45,7 +45,7 @@ def create_new_server(name, version):
         SocketGroup=servers
     '''
     create_socket(id, f"mc.server.{id}.service", service, f"mc.server.{id}.socket", socket)
-    set_permissions(f"/home/servers/{id}", "servers", "servers", 0o775)
+    set_permissions(f"/home/servers/{id}", "servers", "servers", 0o770)
     print("Generated with UUID: " + id)
 
 
