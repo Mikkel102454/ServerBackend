@@ -39,12 +39,32 @@ def write_to_socket(socketName, msg):
 
 
 def set_permissions(directory, user, group, mode):
+    try:
         # Get the UID and GID of the user and group
         uid = pwd.getpwnam(user).pw_uid
         gid = grp.getgrnam(group).gr_gid
 
-        os.chmod(directory, mode)
+        # Recursively change ownership and permissions
+        for root, dirs, files in os.walk(directory):
+            # Change ownership and permissions for the current directory
+            os.chmod(root, mode)
 
-        for item in os.listdir(directory):
-            source_item = os.path.join(directory, item)
-            os.chmod(directory, mode)
+            # Change ownership and permissions for all files in the current directory
+            for file in files:
+                file_path = os.path.join(root, file)
+                os.chmod(file_path, mode)  # Remove execute bit for files
+
+            # Change ownership and permissions for all subdirectories in the current directory
+            for dir in dirs:
+                dir_path = os.path.join(root, dir)
+                os.chmod(dir_path, mode)  # Directories keep execute permissions
+
+        print(f"Permissions successfully updated for '{directory}'")
+    except KeyError as e:
+        print(f"Error: {e}")
+        print("Ensure the user and group exist.")
+    except PermissionError as e:
+        print(f"Permission denied: {e}")
+        print("Run the script with elevated permissions (e.g., sudo).")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
