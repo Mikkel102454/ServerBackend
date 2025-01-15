@@ -36,7 +36,18 @@ def write_to_socket(socketName, msg):
             text=True,
         )
 
+def change_max_ram(socketName, maxRam):
+    # read file
+    with open(f"etc/systemd/system/{socketName}", 'r') as file:
+        lines = file.readlines()
 
+    # Modify the MemoryMax line
+    with open(f"etc/systemd/system/{socketName}", 'w') as file:
+        for line in lines:
+            if line.startswith("MemoryMax="):
+                file.write(f"MemoryMax={maxRam}\n")
+            else:
+                file.write(line)
 
 def set_permissions(directory, user, group, mode):
     uid = pwd.getpwnam(user).pw_uid
