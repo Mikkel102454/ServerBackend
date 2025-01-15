@@ -43,17 +43,8 @@ def set_permissions(directory, user, group, mode):
         uid = pwd.getpwnam(user).pw_uid
         gid = grp.getgrnam(group).gr_gid
 
-        # Recursively change ownership and permissions
-        for root, dirs, files in os.walk(directory):
-            # Change ownership and permissions of the current directory
-            os.chmod(root, mode)
+        os.chmod(directory, mode)
 
-            # Change ownership and permissions of all files
-            for file in files:
-                file_path = os.path.join(root, file)
-                os.chmod(file_path, mode)
-
-            # Change ownership and permissions of all subdirectories
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                os.chmod(dir_path, mode)
+        for item in os.listdir(directory):
+            source_item = os.path.join(directory, item)
+            os.chmod(directory, mode)
