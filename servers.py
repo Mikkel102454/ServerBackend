@@ -5,6 +5,7 @@ from sockets import create_socket
 from sockets import start_socket
 from sockets import stop_socket
 from sockets import write_to_socket
+from sockets import set_permissions
 
 from std import generate_uuid
 from database import insert_table
@@ -44,7 +45,7 @@ def create_new_server(name, version):
         SocketGroup=servers
     '''
     create_socket(id, f"mc.server.{id}.service", service, f"mc.server.{id}.socket", socket)
-    
+    set_permissions(f"/home/servers/{id}", "servers", "servers", "0o750")
     print("Generated with UUID: " + id)
 
 

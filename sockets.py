@@ -34,3 +34,22 @@ def write_to_socket(socketName, msg):
             ["sudo", "sh", "-c", command],
             text=True,
         )
+
+
+
+def set_permissions(directory, user, group, mode):
+    # Get the UID and GID of the user and group
+    uid = shutil.getpwnam(user).pw_uid
+    gid = shutil.getgrnam(group).gr_gid
+
+    # Recursively change ownership and permissions
+    for root, dirs, files in os.walk(directory):
+        # Change ownership of the current directory
+        os.chown(root, uid, gid)
+        os.chmod(root, mode)
+
+        # Change ownership and permissions of all files and subdirectories
+        for name in dirs + files:
+            path = os.path.join(root, name)
+            os.chown(path, uid, gid)
+            os.chmod(path, mode)
