@@ -27,26 +27,26 @@ def create_new_server(name, version):
         User=servers
         Group=servers
         Type=simple
-        ExecStart=/bin/sh -c "exec /home/servers/{id}/start.sh </run/mc.server.{id}.stdin"
-        ExecStop=/bin/sh -c "echo stop > /run/mc.server.{id}.stdin"
+        ExecStart=/bin/sh -c "exec /home/servers/{id}/start.sh </run/server.mc.{id}.stdin"
+        ExecStop=/bin/sh -c "echo stop > /run/server.mc.{id}.stdin"
         WorkingDirectory=/home/servers/{id}/
         MemoryMax=2G
         MemoryAccounting=true
-        Sockets=mc.server.{id}.stdin
+        Sockets=server.mc.{id}.stdin
         [Install]
         WantedBy=multi-user.target
     '''
     socket = f'''
         [Unit]
-        BindsTo=mc.server.{id}.service
+        BindsTo=server.mc.{id}.service
         [Socket]
-        ListenFIFO=%t/mc.server.{id}.stdin
+        ListenFIFO=%t/server.mc.{id}.stdin
         RemoveOnStop=true
         SocketMode=0660
         SocketUser=servers
         SocketGroup=servers
     '''
-    create_socket(id, f"mc.server.{id}.service", service, f"mc.server.{id}.socket", socket)
+    create_socket(id, f"server.mc.{id}.service", service, f"server.mc.{id}.socket", socket)
     
     print("Generated with UUID: " + id)
 
@@ -69,13 +69,13 @@ def create_new_server(name, version):
     set_permissions(f"/home/servers/{id}", "servers", "servers", 0o770)
 def delete_server(id):
     delete_from_table("mc-servers", "uuid", id)
-    delete_socket(id, f"mc.server.{id}.service", f"mc.server.{id}.socket")
+    delete_socket(id, f"server.mc.{id}.service", f"server.mc.{id}.socket")
 def start_server(id, port):
-    start_socket(f"mc.server.{id}.socket")
+    start_socket(f"server.mc.{id}.socket")
 def stop_server(id):
-    stop_socket(f"mc.server.{id}.socket")
+    stop_socket(f"server.mc.{id}.socket")
 def restart_server(id):
-    restart_socket(f"mc.server.{id}.socket")
+    restart_socket(f"server.mc.{id}.socket")
 ## OTHER ##
 
 #Get player list
@@ -104,5 +104,5 @@ def change_propertie(id, property, value):
                 file.write(line)
 
 def send_command(command, id):
-    write_to_socket(f"mc.server.{id}.stdin", command)
+    write_to_socket(f"server.mc.{id}.stdin", command)
     return
