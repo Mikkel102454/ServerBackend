@@ -1,5 +1,6 @@
 import os
-import shutil
+import pwd
+import grp
 import subprocess
 
 
@@ -39,8 +40,8 @@ def write_to_socket(socketName, msg):
 
 def set_permissions(directory, user, group, mode):
     # Get the UID and GID of the user and group
-    uid = shutil.getpwnam(user).pw_uid
-    gid = shutil.getgrnam(group).gr_gid
+    uid = pwd.getpwnam(user).pw_uid
+    gid = grp.getgrnam(group).gr_gid
 
     # Recursively change ownership and permissions
     for root, dirs, files in os.walk(directory):
