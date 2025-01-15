@@ -5,6 +5,7 @@ from sockets import create_socket
 from sockets import start_socket
 from sockets import stop_socket
 from sockets import write_to_socket
+from sockets import set_permissions
 
 from std import generate_uuid
 from database import insert_table
@@ -25,6 +26,7 @@ def create_new_server(name, version):
         Group=servers
         Type=simple
         ExecStart=/bin/sh -c "exec /home/servers/{id}/start.sh </run/mc.server.{id}.stdin"
+        ExecStop=/bin/sh -c "echo stop > /run/mc.server.{id}.stdin"
         WorkingDirectory=/home/servers/{id}/
         MemoryMax=2G
         MemoryAccounting=true
@@ -61,6 +63,8 @@ def create_new_server(name, version):
             # Copy directories
             shutil.copytree(source_item, dest_item, dirs_exist_ok=True)
             print(f"Copied directory: {source_item} -> {dest_item}")
+
+    set_permissions(f"/home/servers/{id}", "servers", "servers", 0o770)
 
 
 def start_server(id, port):
