@@ -24,21 +24,21 @@ def delete_socket(serverID, serviceName, socketName):
         os.remove(f"/etc/systemd/system/{serviceName}")
     if os.path.exists(f"/etc/systemd/system/{socketName}"):
         os.remove(f"/etc/systemd/system/{socketName}")
-def start_socket(socketName):
-    subprocess.run(
+async def start_socket(socketName):
+    await subprocess.run(
         ["sudo", "systemctl", "start", socketName],
         text=True,
     )
     print(f"Service {socketName} started successfully!")
-def stop_socket(socketName):
-    subprocess.run(
+async def stop_socket(socketName):
+    await subprocess.run(
         ["sudo", "systemctl", "stop", socketName],
         text=True,
     )
     print(f"Service {socketName} stopped successfully!")
-def restart_socket(socketName):
-    stop_socket(socketName)
-    start_socket(socketName)
+async def restart_socket(socketName):
+    await stop_socket(socketName)
+    await start_socket(socketName)
     print(f"Service {socketName} restarted successfully!")
 def write_to_socket(socketName, msg):
         command = f"echo {msg} > /run/{socketName}"
