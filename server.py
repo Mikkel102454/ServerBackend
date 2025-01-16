@@ -19,7 +19,7 @@ def HandleExcahnge():
     data = request.json
     if data.get('handleCode') is None:
         return jsonify({"status": "failure", "exitCode": 400})
-    
+    print(data)
     handleCode = data.get('handleCode')
     if handleCode == 1: # change up state
         state = handleCode = data.get('stateCode')
