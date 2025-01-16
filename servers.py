@@ -75,8 +75,8 @@ def start_server(id):
 def stop_server(id):
     stop_socket(f"server.mc.{id}.service")
 def restart_server(id):
-    start_socket(f"server.mc.{id}.socket")
     stop_socket(f"server.mc.{id}.service")
+    start_socket(f"server.mc.{id}.socket")
 ## OTHER ##
 
 #Get player list
