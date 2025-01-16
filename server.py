@@ -17,9 +17,10 @@ from servers import send_command
 @app.route('/exchange', methods=['POST'])
 def HandleExcahnge():
     data = request.json
+    print(data)
     if data.get('handleCode') is None:
         return jsonify({"status": "failure", "exitCode": 400})
-    print(data)
+    
     handleCode = data.get('handleCode')
     if handleCode == 1: # change up state
         state = handleCode = data.get('stateCode')
