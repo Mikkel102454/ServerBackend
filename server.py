@@ -31,18 +31,17 @@ def HandleExcahnge():
             stop_server(serverID)
         if state == 3: #restart
             restart_server(serverID)
-        return
+        return jsonify({"status": "succes", "exitCode": 0})
     elif handleCode == 2: # send command
         command = handleCode = data.get('command')
         serverID = handleCode = data.get('serverID')
         send_command(command, serverID)
-        return
+        return jsonify({"status": "succes", "exitCode": 0})
     elif handleCode == 3: # load data
         # Current Console
         # Player max
         # Player Count
-    
-        return 
+        return jsonify({"status": "succes", "exitCode": 0})
 
 
             
