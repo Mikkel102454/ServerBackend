@@ -70,7 +70,7 @@ def create_new_server(name, version):
 def delete_server(id):
     delete_from_table("mc-servers", "uuid", id)
     delete_socket(id, f"server.mc.{id}.service", f"server.mc.{id}.socket")
-def start_server(id, port):
+def start_server(id):
     start_socket(f"server.mc.{id}.socket")
 def stop_server(id):
     stop_socket(f"server.mc.{id}.service")
