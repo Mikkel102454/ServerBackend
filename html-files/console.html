@@ -8,20 +8,20 @@
     <script src="console.js"></script>
 </head>
 <body>
-    <input type="text" class="serverID">
+    <input type="text" id="serverID">
     <div class="status">
         <p>Online 1/20</p>
-        <button type="button" class="btn-start" onclick="startServer()">Start</button>
-        <button type="button" class="btn-restart" onclick="restartServer()">Restart</button>
-        <button type="button" class="btn-stop" onclick="stopServer()">Stop</button>
+        <button type="button" class="btn-start" id="btn-start" onclick="startServer()">Start</button>
+        <button type="button" class="btn-restart" id="btn-restart" onclick="restartServer()">Restart</button>
+        <button type="button" class="btn-stop" id="btn-stop" onclick="stopServer()">Stop</button>
     </div>
     <div class="console">
-        <input type="text" placeholder="Input a command..." class="command">
+        <input type="text" placeholder="Input a command..." id="command">
         <p>dasdsad</p>
         <p>dasdsad</p>
         <p>dasdsad</p>
         
     </div>
-    <button type="button" class="btn-restart" onclick="sendCommand()">SendCommand</button>
+    <button type="button" id="btn-restart" onclick="sendCommand()">SendCommand</button>
 </body>
 </html>
