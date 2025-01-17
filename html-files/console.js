@@ -1,6 +1,6 @@
 async function ExchangeServer(request){
     console.log(request);
-    var response = await fetch("http://192.168.0.197:5000/exchange", {
+    var response = await fetch("http://192.168.10.198:5000/exchange", {
         method: "POST",
         headers: {'Content-Type': 'application/json' },
         body: JSON.stringify(request)
