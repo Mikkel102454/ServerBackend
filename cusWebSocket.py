@@ -26,8 +26,6 @@ async def handler(websocket, path):
         if not server_clients[server_id]:
             del server_clients[server_id]
 
-
-
 async def broadcast_update(server_id, update):
     # Broadcast the update to all connected clients of the given server
     if server_id in server_clients:
@@ -48,9 +46,6 @@ async def simulate_console_updates():
 
 async def start_websocket_server():
     """Starts the WebSocket server."""
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
     websocket_server = websockets.serve(handler, "localhost", 8765)
-    loop.run_until_complete(websocket_server)
-    loop.run_until_complete(simulate_console_updates())
-    loop.run_forever()
+    await websocket_server  # Start the WebSocket server
+    await simulate_console_updates()  # Start broadcasting updates

@@ -48,7 +48,8 @@ def HandleExcahnge():
 
 
 import cusWebSocket         
-asyncio.run(cusWebSocket.start_websocket_server())
+
 
 if __name__ == '__main__':
+    asyncio.run(cusWebSocket.start_websocket_server())
     app.run(host='192.168.10.198')
