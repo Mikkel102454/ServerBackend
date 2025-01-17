@@ -52,5 +52,4 @@ def start_websocket_server():
     asyncio.set_event_loop(loop)
     websocket_server = websockets.serve(handler, "localhost", 8765)
     loop.run_until_complete(websocket_server)
-    loop.run_until_complete(simulate_console_updates())
     loop.run_forever()
