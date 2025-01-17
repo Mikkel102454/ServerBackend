@@ -46,7 +46,7 @@ async def simulate_console_updates():
             await broadcast_update(server_id, update)
         await asyncio.sleep(1)  # Simulate 1-second delay
 
-def start_websocket_server():
+async def start_websocket_server():
     """Starts the WebSocket server."""
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
