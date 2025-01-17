@@ -107,5 +107,3 @@ def change_propertie(id, property, value):
 def send_command(command, id):
     write_to_socket(f"server.mc.{id}.stdin", command)
     return
-
-def get_current_log
