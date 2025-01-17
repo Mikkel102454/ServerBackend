@@ -1,4 +1,7 @@
 from flask import Flask, send_from_directory, request, jsonify
+import asyncio
+
+
 app = Flask(__name__)
 @app.route('/')
 def GetIndexHTML():
@@ -45,7 +48,7 @@ def HandleExcahnge():
 
 
 import cusWebSocket         
-cusWebSocket.start_websocket_server()
+asyncio.run(cusWebSocket.start_websocket_server())
 
 if __name__ == '__main__':
     app.run(host='192.168.10.198')
