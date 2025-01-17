@@ -51,5 +51,5 @@ import cusWebSocket
 
 
 if __name__ == '__main__':
-    asyncio.run(cusWebSocket.start_websocket_server())
     app.run(host='192.168.10.198')
+    asyncio.run(cusWebSocket.start_websocket_server())
