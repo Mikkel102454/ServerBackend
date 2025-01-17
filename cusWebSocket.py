@@ -49,3 +49,4 @@ async def start_websocket_server():
     websocket_server = websockets.serve(handler, "192.168.10.198", 8765)
     await websocket_server  # Start the WebSocket server
     await simulate_console_updates()  # Start broadcasting updates
+    print("Websocket started")
