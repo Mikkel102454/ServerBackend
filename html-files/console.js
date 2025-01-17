@@ -36,7 +36,7 @@ function sendCommand(){
 
 const clientId = "user123"; // Replace with a unique identifier for the client
 const serverId = "server1"; // Server the client wants to connect to
-const ws = new WebSocket(`ws://localhost:8765/test?client_id=client1`);
+const ws = new WebSocket(`ws://192.168.10.198:8765/test?client_id=client1`);
 
 ws.onopen = () => {
     console.log("Connected to the server");
