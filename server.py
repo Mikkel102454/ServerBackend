@@ -1,5 +1,4 @@
 from flask import Flask, send_from_directory, request, jsonify
-import asyncio
 
 
 app = Flask(__name__)
@@ -46,10 +45,5 @@ def HandleExcahnge():
         # Player Count
         return jsonify({"status": "succes", "exitCode": 0})
 
-
-import cusWebSocket         
-
-
 if __name__ == '__main__':
     app.run(host='192.168.10.198')
-    asyncio.run(cusWebSocket.start_websocket_server())
