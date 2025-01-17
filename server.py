@@ -44,8 +44,8 @@ def HandleExcahnge():
         return jsonify({"status": "succes", "exitCode": 0})
 
 
-            
-
+import cusWebSocket         
+cusWebSocket.start_websocket_server()
 
 if __name__ == '__main__':
     app.run(host='192.168.10.198')
