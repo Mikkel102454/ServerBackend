@@ -31,3 +31,14 @@ ul li *{
 ul {
     list-style: none !important;
 }
+div {
+    height: 75px;
+    background-color: rgb(90, 90, 90);
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    cursor:pointer;
+}

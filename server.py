@@ -16,6 +16,8 @@ from servers import start_server
 from servers import stop_server
 from servers import restart_server
 from servers import send_command
+from servers import create_new_server
+from servers import delete_server
 @app.route('/exchange', methods=['POST'])
 def HandleExcahnge():
     data = request.json
@@ -44,6 +46,18 @@ def HandleExcahnge():
         # Player max
         # Player Count
         return jsonify({"status": "succes", "exitCode": 0})
+    elif handleCode == 4: # Create server
+        name = handleCode = data.get('name')
+        version = handleCode = data.get('version')
+        create_new_server(name, version)
+        return jsonify({"status": "succes", "exitCode": 0})
+    elif handleCode == 5: # Delete Server
+        serverID = handleCode = data.get('serverID')
+        delete_server(serverID)
+        return jsonify({"status": "succes", "exitCode": 0})
+    elif handleCode == 6: # Get Servers
+        return jsonify({"status": "succes", "exitCode": 0})
+
 
 if __name__ == '__main__':
     app.run(host='192.168.10.198')
