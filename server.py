@@ -41,11 +41,6 @@ def HandleExcahnge():
         serverID = handleCode = data.get('serverID')
         send_command(command, serverID)
         return jsonify({"status": "succes", "exitCode": 0})
-    elif handleCode == 3: # load data
-        # Current Console
-        # Player max
-        # Player Count
-        return jsonify({"status": "succes", "exitCode": 0})
     elif handleCode == 4: # Create server
         name = handleCode = data.get('name')
         version = handleCode = data.get('version')
